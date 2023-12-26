@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 
 
 export const Calculator = () => {
-    const [value,setValue]=useState('0');
-  const [res,setRes]=useState()
+    const [value,setValue]=useState('');
 
 
 
+console.log(value)
     useEffect(()=>{
      document.addEventListener('keydown',keybrd)
     },[])
 
-const keybrd =(e)=>{
-
+    const keybrd = (e) => {
+  setValue(e.key)
 }
 
 
@@ -26,7 +26,7 @@ const keybrd =(e)=>{
         <form>
            
             <div className={styles.display}>
-                <input type="text" name={styles.display} readOnly id="scrn"  value={value.length>23?alert('You Riched Your Limit,Please Stop!'):value} />
+                <input type="text" name={styles.display} readOnly id="scrn"  value={value} />
             </div>
             <div>
                 <input type="button" value="AC" className={styles.operator}  onClick={()=>setValue('')}/>
