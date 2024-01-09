@@ -23,7 +23,10 @@ const handleResult =()=>{
   
   if (dt.length > 10) {
     alert('Please Select correct date')
-  } else if (dt.length < 10) { alert('Please Select correct date') } else if(givenD > d) { alert(`Please Select before ${c_dt}`) } else{
+  } else if (dt.length < 10) { alert('Please Select correct date') } else if(givenD > d) { alert(`Please Select before ${c_dt}`) } else if(mn<0 || (mn == 0 && dy<0)){
+    let crYr =  (d.getFullYear() - givenD.getFullYear(dt))-1;
+    setYr(crYr)
+  }else{
      let crYr =  d.getFullYear() - givenD.getFullYear(dt);
   setYr(crYr)
 
