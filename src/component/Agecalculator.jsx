@@ -11,7 +11,7 @@ const [mn,setMn] = useState('')
 const [dy,setDy] = useState('')
 
 
-
+console.log(dy)
 
   const d = new Date();
  const c_dt = new Date().toLocaleDateString('en-GB');
@@ -21,23 +21,36 @@ const [dy,setDy] = useState('')
 
 const handleResult =()=>{
   
-  if (dt.length > 10) {
-    alert('Please Select correct date')
-  } else if (dt.length < 10) { alert('Please Select correct date') } else if(givenD > d) { alert(`Please Select before ${c_dt}`) } else if(mn<0 || (mn == 0 && dy<0)){
-    let crYr =  (d.getFullYear() - givenD.getFullYear(dt))-1;
-    setYr(crYr)
-  }else{
-     let crYr =  d.getFullYear() - givenD.getFullYear(dt);
+if(new Date().getMonth() - new Date(dt).getMonth()<0 || ((new Date().getMonth() - new Date(dt).getMonth()) == 0 && (new Date().getTime() - new Date(dt).getTime())<0 )){
+  
+  //calculate year with condition
+  let crYr =  (d.getFullYear() - givenD.getFullYear(dt));
+  setYr(crYr)
+  setYr(crYr-1)
+
+  //calculate month with condition
+  let crMn =  d.getMonth() - givenD.getMonth(dt);
+setMn(12 + crMn -1)
+
+//calculate day with condition
+let crDy =   d.getDate() - givenD.getDate(dt);
+setDy(30 + crDy)
+
+}else{
+
+  
+  //calculate year without condition
+  let crYr =  (d.getFullYear() - givenD.getFullYear(dt));
   setYr(crYr)
 
+    //calculate month without condition
   let crMn =  d.getMonth() - givenD.getMonth(dt);
   setMn(crMn)
 
+    //calculate day without condition
   let crDy =   d.getDate() - givenD.getDate(dt);
     setDy(crDy)
-    }
- 
- 
+}
 
 }
 
@@ -46,7 +59,12 @@ const handleResult =()=>{
 const handleday = ()=>{
   if (dt.length < 10) {
     alert('Please Select correct date')
-  } else if(givenD > d) { alert(`Please Select before ${c_dt}`) }else {
+  } else if(givenD > d) { alert(`Please Select before ${c_dt}`) }else if(new Date().getMonth() - new Date(dt).getMonth()<0 || ((new Date().getMonth() - new Date(dt).getMonth()) == 0 && (new Date().getTime() - new Date(dt).getTime())<0 )){
+    const days = ((new Date().getTime() - new Date(dt).getTime()) / 86400000).toFixed()
+    setMn('')
+    setYr('')
+    setDy(days)
+  }else{
     const days = ((new Date().getTime() - new Date(dt).getTime()) / 86400000).toFixed()
     setMn('')
     setYr('')
@@ -59,11 +77,18 @@ const handleday = ()=>{
   const handleMonths = () => {
     if (dt.length < 10) {
       alert('Please Select correct date')
-    }else if(givenD > d) { alert(`Please Select before ${c_dt}`) } else {
+    }else if(givenD > d) { alert(`Please Select before ${c_dt}`) } else if(new Date().getMonth() - new Date(dt).getMonth()<0 || ((new Date().getMonth() - new Date(dt).getMonth()) == 0 && (new Date().getTime() - new Date(dt).getTime())<0 )){
+      const crMnth = (new Date().getMonth() - new Date(dt).getMonth());
+      const calcMnth = (new Date().getFullYear() - new Date(dt).getFullYear()) * 12
+      const res = crMnth + calcMnth - 1;
+      setMn(res)
+      setYr('')
+      setDy('')
+    } {
   
       const crMnth = (new Date().getMonth() - new Date(dt).getMonth());
       const calcMnth = (new Date().getFullYear() - new Date(dt).getFullYear()) * 12
-      const res = crMnth + calcMnth
+      const res = crMnth + calcMnth - 1
       setMn(res)
       setDy('')
     }
